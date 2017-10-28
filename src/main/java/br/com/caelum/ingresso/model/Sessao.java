@@ -4,11 +4,17 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,6 +35,9 @@ public class Sessao {
 	private Filme filme;
 	
 	private BigDecimal preco;
+	
+	@OneToMany(mappedBy = "sessao", fetch = FetchType.EAGER)
+	private Set<Ingresso> ingressos = new HashSet<>();
 	
 	
 
@@ -87,6 +96,14 @@ public class Sessao {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
+	}
+	
+	public Map<String, List<Lugar>> getMapaDeLugares(){
+		return sala.getMapaDeLugares();
+	}
+	
+	public boolean isDisponivel(Lugar lugarSelecionado){
+		return ingressos.stream().map(Ingresso::getLugar).noneMatch(lugar -> lugar.equals(lugarSelecionado));
 	}
 	
 	

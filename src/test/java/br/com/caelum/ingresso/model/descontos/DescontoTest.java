@@ -9,8 +9,10 @@ import org.junit.Test;
 
 import br.com.caelum.ingresso.model.Filme;
 import br.com.caelum.ingresso.model.Ingresso;
+import br.com.caelum.ingresso.model.Lugar;
 import br.com.caelum.ingresso.model.Sala;
 import br.com.caelum.ingresso.model.Sessao;
+import br.com.caelum.ingresso.model.TipoDeIngresso;
 
 public class DescontoTest {
 
@@ -21,7 +23,9 @@ public class DescontoTest {
 		
 		Sessao sessao = new Sessao (LocalTime.parse("18:00:00"),filme,sala);
 		
-		Ingresso ingresso = new Ingresso(sessao, new DescontoTrintaPorcentoBancos());
+		Lugar lugar = new Lugar("A",1);
+		
+		Ingresso ingresso = new Ingresso(sessao, TipoDeIngresso.BANCO, lugar);
 		
 		BigDecimal preco = new BigDecimal("22.75");
 		
@@ -35,7 +39,9 @@ public class DescontoTest {
 		
 		Sessao sessao = new Sessao (LocalTime.parse("10:00:00"),filme,sala);
 		
-		Ingresso ingresso = new Ingresso(sessao, new DescontoEstudante());
+		Lugar lugar = new Lugar("A",1);
+		
+		Ingresso ingresso = new Ingresso(sessao, TipoDeIngresso.ESTUDANTE,lugar);
 		
 		BigDecimal preco = new BigDecimal("16.25");
 		
@@ -49,7 +55,9 @@ public class DescontoTest {
 		
 		Sessao sessao = new Sessao (LocalTime.parse("10:00:00"),filme,sala);
 		
-		Ingresso ingresso = new Ingresso(sessao, new SemDesconto());
+		Lugar lugar = new Lugar("A",1);
+		
+		Ingresso ingresso = new Ingresso(sessao, TipoDeIngresso.INTEIRO,lugar);
 		
 		BigDecimal preco = new BigDecimal("32.5");
 		
